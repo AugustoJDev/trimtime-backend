@@ -3,13 +3,14 @@ const path = require('path');
 const cors = require('cors');
 const app = express();
 
+app.options('*', cors());
+
+// Middleware para parsing
 app.use(express.json());
 
-app.use(cors({
-  origin: 'https://trimtime-frontend.pages.dev',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+app.get('/', (req, res) => {
+  res.json({ message: 'CORS funcionando!' });
+});
 
 const endpoints = require('./routes');
 app.use(endpoints);
