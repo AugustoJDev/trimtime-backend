@@ -6,7 +6,7 @@ const app = express();
 
 // Configuração do CORS
 app.use(cors({
-    origin: 'https://trimtime-frontend.pages.dev', // Domínio do frontend
+    origin: '*', // Domínio do frontend
     methods: ['GET', 'POST', 'PUT', 'DELETE'],    // Métodos permitidos
     allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
 }));
