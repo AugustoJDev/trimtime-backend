@@ -44,8 +44,8 @@ router.get('/booking', async (req, res) => {
 });
 
 router.post('/booking', async (req, res) => {
-  const { date, time } = req.body;
-  if (!date || !time) return res.status(400).send('Date and time are required');
+  const { date, time, name, email, services } = req.body;
+  if (!date || !time) return res.status(400).send('All informations are required');
 
   try {
     const bookingDoc = db.collection('bookings').doc(date);
@@ -53,8 +53,9 @@ router.post('/booking', async (req, res) => {
     await bookingDoc.set(
       {
         [time]: {
-          name: 'User Name', // Replace with actual user data from authentication
-          email: 'user@example.com', // Replace with actual user data from authentication
+          name: name,
+          email: email,
+          services: services
         },
       },
       { merge: true }

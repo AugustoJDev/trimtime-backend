@@ -56,10 +56,9 @@ router.post('/payment', async (req, res) => {
         payment.create({ body: transaction })
         .then((data) => {
             console.log(data);
+            return res.json(data);
         })
         .catch(console.log);
-
-        return res.json(200);
     } catch (error) {
         console.error('Erro ao fazer pagamento:', error);
         return res.status(500).send('Erro ao fazer pagamento');
