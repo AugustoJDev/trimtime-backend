@@ -4,8 +4,6 @@ const jwt = require('jsonwebtoken');
 const firebase = require('firebase/app');
 require('firebase/firestore');
 
-const secretKey = "trimtime-tokens";
-
 const { firebaseConfig } = require('../secrets/firebaseConfig');
 
 if (!firebase.apps.length) {

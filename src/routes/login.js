@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const firebase = require('firebase/app');
-require('firebase/firestore');
 
-const secretKey = "trimtime-tokens"; // Chave secreta para gerar o token
+require('firebase/firestore');
+require('dotenv').config();
 
 const { firebaseConfig } = require('../secrets/firebaseConfig');
 
@@ -40,10 +40,10 @@ router.post('/login', async (req, res) => {
     // Verifica a senha (certifique-se de que o campo está corretamente nomeado no Firestore)
     if (user.password === password) { // Substitua "password" pelo nome correto do campo, se necessário
       // Gera um token JWT
-      const token = jwt.sign({ id: userDoc.id, email: user.email }, secretKey, { expiresIn: '24h' });
+      const token = jwt.sign({ id: userDoc.id, email: user.email }, process.env.JWT, { expiresIn: '24h' });
 
       // Retorna o token para o frontend
-      return res.json({ token });
+      return res.json({ token, user });
     } else {
       return res.status(401).send('Credenciais inválidas');
     }

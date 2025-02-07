@@ -4,11 +4,9 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { firebaseConfig } = require('../secrets/firebaseConfig');
 const firebase = require('firebase/app');
+
 require('firebase/firestore');
-
 require('dotenv').config();
-
-const secretKey = "trimtime-tokens";
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -30,7 +28,7 @@ router.post('/payment', async (req, res) => {
         items: body.items,
     }
 
-    const decoded = jwt.verify(token, secretKey);
+    const decoded = jwt.verify(token, process.env.JWT);
 
     try {
         const userRef = db.collection('users').doc(decoded.email);
